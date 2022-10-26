@@ -21,6 +21,7 @@ class CreateBooksTable extends Migration
             $table->string('describe')->nullable()->comment('Описание книги');
             $table->integer('user_id')->unsigned()->comment('Идентификатор автора книги');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

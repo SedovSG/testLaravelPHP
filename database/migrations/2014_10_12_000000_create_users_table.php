@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name')->comment('Имя автора');
             $table->string('email')->unique()->comment('Эл. адрес автора');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

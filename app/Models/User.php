@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -24,12 +26,25 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $hidden = [];
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 
     /**
-     * The attributes that should be cast.
+     * The attributes that should be mutated to dates.
      *
-     * @var array<string, string>
+     * @var array
      */
-    protected $casts = [];
+    protected $dates = ['deleted_at'];
+
+    /**
+     * Получает книги автора.
+     * @return hasMany
+     */
+    public function books()
+    {
+        return $this->hasMany(Book::class);
+    }
 }
